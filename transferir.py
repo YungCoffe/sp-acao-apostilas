@@ -6,6 +6,7 @@ items = json.loads('[{"file": "matematica1.pdf", "http": 200, "url": "https://tm
 def get_file(url, target):
     jar = http.cookiejar.CookieJar()
     op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
+    op.addheaders = [('User-Agent', 'Mozilla/5.0 (compatible; document-transfer/1.0)')]
     with op.open(url, timeout=90) as res: html = res.read().decode()
     hits = re.findall(r'href=["\']([^"\']+/dl/[^"\']+)["\']', html)
     if len(hits) != 1: raise RuntimeError('Link de download indisponível')
